@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance Tracker - FitZone Gym</title>
+    <link rel="stylesheet" href="css/neon-theme.css">
+    <link rel="stylesheet" href="css/attendance.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="neon-nav">
+        <div class="neon-nav-container">
+            <div class="neon-nav-logo neon-text-orange">
+                <i class="fas fa-dumbbell"></i> FitZone Attendance
+            </div>
+            <ul class="neon-nav-menu">
+                <li><a href="dashboard.html" class="neon-nav-link">Dashboard</a></li>
+                <li><a href="attendance.html" class="neon-nav-link">Attendance</a></li>
+                <li><a href="payments.html" class="neon-nav-link">Payments</a></li>
+                <li><a href="workouts.html" class="neon-nav-link">Workouts</a></li>
+                <li><a href="index.html" class="neon-nav-link">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="neon-hero">
+        <div class="neon-hero-content">
+            <h1 class="neon-text-orange">Attendance Tracker</h1>
+            <p>Mark and track member attendance with ease</p>
+        </div>
+    </section>
+
+    <!-- Attendance Content -->
+    <div class="attendance-container">
+        <!-- Quick Actions -->
+        <div class="quick-actions">
+            <div class="action-card neon-card">
+                <h3 class="neon-text-green">Today's Attendance</h3>
+                <p id="todayCount">0 members checked in</p>
+                <button class="btn-neon btn-neon-green" onclick="markAllPresent()">
+                    <i class="fas fa-check-double"></i> Mark All Present
+                </button>
+            </div>
+            <div class="action-card neon-card">
+                <h3 class="neon-text-blue">This Week</h3>
+                <p id="weekCount">0 total check-ins</p>
+                <button class="btn-neon btn-neon-blue" onclick="viewWeeklyReport()">
+                    <i class="fas fa-chart-bar"></i> Weekly Report
+                </button>
+            </div>
+            <div class="action-card neon-card">
+                <h3 class="neon-text-orange">Search Member</h3>
+                <input type="text" id="memberSearch" class="neon-input" placeholder="Enter member name..." onkeyup="searchMember()">
+            </div>
+        </div>
+
+        <!-- Mark Attendance Section -->
+        <section class="mark-attendance">
+            <h2 class="neon-text-orange">Mark Attendance</h2>
+            <div class="date-selector">
+                <label for="attendanceDate">Select Date:</label>
+                <input type="date" id="attendanceDate" class="neon-input" onchange="loadAttendance()">
+            </div>
+            <div class="attendance-grid" id="attendanceGrid">
+                <!-- Dynamic member cards -->
+            </div>
+        </section>
+
+        <!-- Attendance History -->
+        <section class="attendance-history">
+            <h2 class="neon-text-orange">Attendance History</h2>
+            <div class="history-controls">
+                <input type="text" id="historySearch" class="neon-input" placeholder="Search history..." onkeyup="filterHistory()">
+                <select id="dateRange" class="neon-select" onchange="filterHistory()">
+                    <option value="today">Today</option>
+                    <option value="week">This Week</option>
+                    <option value="month">This Month</option>
+                    <option value="all">All Time</option>
+                </select>
+            </div>
+            <div class="table-container">
+                <table class="neon-table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Member Name</th>
+                            <th>Check-in Time</th>
+                            <th>Duration</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="attendanceHistory">
+                        <!-- Dynamic content -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Statistics -->
+        <section class="attendance-stats">
+            <h2 class="neon-text-orange">Attendance Statistics</h2>
+            <div class="stats-grid">
+                <div class="stat-card neon-card">
+                    <div class="stat-icon neon-text-green">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Total Check-ins</h3>
+                    <p id="totalCheckins">0</p>
+                </div>
+                <div class="stat-card neon-card">
+                    <div class="stat-icon neon-text-blue">
+                        <i class="fas fa-calendar-day"></i>
+                    </div>
+                    <h3>Average Daily</h3>
+                    <p id="avgDaily">0</p>
+                </div>
+                <div class="stat-card neon-card">
+                    <div class="stat-icon neon-text-orange">
+                        <i class="fas fa-percentage"></i>
+                    </div>
+                    <h3>Attendance Rate</h3>
+                    <p id="attendanceRate">0%</p>
+                </div>
+                <div class="stat-card neon-card">
+                    <div class="stat-icon neon-text-red">
+                        <i class="fas fa-fire"></i>
+                    </div>
+                    <h3>Most Active Member</h3>
+                    <p id="mostActive">None</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Modal for Manual Entry -->
+    <div id="manualEntryModal" class="modal">
+        <div class="modal-content neon-card">
+            <span class="close">&times;</span>
+            <h2>Manual Attendance Entry</h2>
+            <form id="manualEntryForm">
+                <input type="text" id="manualMemberName" class="neon-input" placeholder="Member Name" required>
+                <input type="time" id="manualCheckinTime" class="neon-input" required>
+                <input type="time" id="manualCheckoutTime" class="neon-input">
+                <button type="submit" class="btn-neon btn-neon-green">Save Entry</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/attendance.js"></script>
+</body>
+</html>

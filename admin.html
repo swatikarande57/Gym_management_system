@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - FitZone Gym Management</title>
+    <link rel="stylesheet" href="css/neon-theme.css">
+    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="neon-nav">
+        <div class="neon-nav-container">
+            <div class="neon-nav-logo neon-text-orange">
+                <i class="fas fa-dumbbell"></i> FitZone Admin
+            </div>
+            <ul class="neon-nav-menu">
+                <li><a href="#dashboard" class="neon-nav-link">Dashboard</a></li>
+                <li><a href="#members" class="neon-nav-link">Members</a></li>
+                <li><a href="#trainers" class="neon-nav-link">Trainers</a></li>
+                <li><a href="#attendance" class="neon-nav-link">Attendance</a></li>
+                <li><a href="#payments" class="neon-nav-link">Payments</a></li>
+                <li><a href="#workouts" class="neon-nav-link">Workouts</a></li>
+                <li><a href="index.html" class="neon-nav-link">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="neon-hero">
+        <div class="neon-hero-content">
+            <h1 class="neon-text-orange">Admin Dashboard</h1>
+            <p>Manage your gym efficiently with our comprehensive admin panel</p>
+        </div>
+    </section>
+
+    <!-- Dashboard Content -->
+    <div class="admin-container">
+        <!-- Quick Stats -->
+        <div class="stats-grid">
+            <div class="stat-card neon-card">
+                <div class="stat-icon neon-text-green">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="stat-info">
+                    <h3>Total Members</h3>
+                    <p id="totalMembers">0</p>
+                </div>
+            </div>
+            <div class="stat-card neon-card">
+                <div class="stat-icon neon-text-blue">
+                    <i class="fas fa-user-tie"></i>
+                </div>
+                <div class="stat-info">
+                    <h3>Total Trainers</h3>
+                    <p id="totalTrainers">0</p>
+                </div>
+            </div>
+            <div class="stat-card neon-card">
+                <div class="stat-icon neon-text-orange">
+                    <i class="fas fa-dollar-sign"></i>
+                </div>
+                <div class="stat-info">
+                    <h3>Monthly Revenue</h3>
+                    <p id="monthlyRevenue">$0</p>
+                </div>
+            </div>
+            <div class="stat-card neon-card">
+                <div class="stat-icon neon-text-red">
+                    <i class="fas fa-calendar-check"></i>
+                </div>
+                <div class="stat-info">
+                    <h3>Today's Attendance</h3>
+                    <p id="todayAttendance">0</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Members Management -->
+        <section id="members" class="admin-section">
+            <h2 class="neon-text-orange">Member Management</h2>
+            <div class="section-controls">
+                <input type="text" id="memberSearch" class="neon-input" placeholder="Search members...">
+                <select id="memberFilter" class="neon-select">
+                    <option value="all">All Members</option>
+                    <option value="Basic">Basic</option>
+                    <option value="Premium">Premium</option>
+                    <option value="Elite">Elite</option>
+                </select>
+                <button class="btn-neon btn-neon-orange" onclick="addMember()">
+                    <i class="fas fa-plus"></i> Add Member
+                </button>
+            </div>
+            <div class="table-container">
+                <table class="neon-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Membership</th>
+                            <th>Join Date</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="membersTableBody">
+                        <!-- Dynamic content -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Trainers Management -->
+        <section id="trainers" class="admin-section">
+            <h2 class="neon-text-orange">Trainer Management</h2>
+            <div class="section-controls">
+                <button class="btn-neon btn-neon-orange" onclick="addTrainer()">
+                    <i class="fas fa-plus"></i> Add Trainer
+                </button>
+            </div>
+            <div class="table-container">
+                <table class="neon-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Specialty</th>
+                            <th>Experience</th>
+                            <th>Contact</th>
+                            <th>Schedule</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="trainersTableBody">
+                        <!-- Dynamic content -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Attendance Tracker -->
+        <section id="attendance" class="admin-section">
+            <h2 class="neon-text-orange">Attendance Tracker</h2>
+            <div class="attendance-controls">
+                <input type="date" id="attendanceDate" class="neon-input">
+                <button class="btn-neon btn-neon-green" onclick="markAttendance()">
+                    <i class="fas fa-check"></i> Mark Today's Attendance
+                </button>
+            </div>
+            <div class="table-container">
+                <table class="neon-table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Member Name</th>
+                            <th>Check-in Time</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="attendanceTableBody">
+                        <!-- Dynamic content -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Payment Management -->
+        <section id="payments" class="admin-section">
+            <h2 class="neon-text-orange">Payment Management</h2>
+            <div class="section-controls">
+                <input type="text" id="paymentSearch" class="neon-input" placeholder="Search payments...">
+                <select id="paymentStatusFilter" class="neon-select">
+                    <option value="all">All Status</option>
+                    <option value="paid">Paid</option>
+                    <option value="pending">Pending</option>
+                    <option value="overdue">Overdue</option>
+                </select>
+            </div>
+            <div class="table-container">
+                <table class="neon-table">
+                    <thead>
+                        <tr>
+                            <th>Member</th>
+                            <th>Amount</th>
+                            <th>Due Date</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="paymentsTableBody">
+                        <!-- Dynamic content -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+
+    <!-- Modals -->
+    <div id="memberModal" class="modal">
+        <div class="modal-content neon-card">
+            <span class="close">&times;</span>
+            <h2 id="memberModalTitle">Add Member</h2>
+            <form id="memberForm">
+                <input type="text" id="memberName" class="neon-input" placeholder="Full Name" required>
+                <input type="email" id="memberEmail" class="neon-input" placeholder="Email" required>
+                <input type="tel" id="memberPhone" class="neon-input" placeholder="Phone" required>
+                <input type="number" id="memberAge" class="neon-input" placeholder="Age" min="16" max="100" required>
+                <select id="memberGender" class="neon-select" required>
+                    <option value="">Select Gender</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                </select>
+                <select id="memberMembership" class="neon-select" required>
+                    <option value="">Select Membership</option>
+                    <option value="Basic">Basic - $29/month</option>
+                    <option value="Premium">Premium - $49/month</option>
+                    <option value="Elite">Elite - $79/month</option>
+                </select>
+                <button type="submit" class="btn-neon btn-neon-green">Save Member</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/admin.js"></script>
+</body>
+</html>
